@@ -1,3 +1,6 @@
 myenv/
 db.sqlite3/
 Mobshop/settings.py
+cart/__pycache__/
+product/__pycache__/
+mobshop_core/__pycache__/

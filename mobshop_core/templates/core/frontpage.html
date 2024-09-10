@@ -1,0 +1,91 @@
+{% extends "core/base.html" %} 
+{% load static %} {% block content %}
+
+<!-- script -->
+<script>
+  let slideIndex = 1;
+  showSlides(slideIndex);
+
+  // Next/previous controls
+  function plusSlides(n) {
+    showSlides((slideIndex += n));
+  }
+
+  // Thumbnail image controls
+  function currentSlide(n) {
+    showSlides((slideIndex = n));
+  }
+
+  function showSlides(n) {
+    let i;
+    let slides = document.getElementsByClassName("mySlides");
+    let dots = document.getElementsByClassName("dot");
+    if (n > slides.length) {
+      slideIndex = 1;
+    }
+    if (n < 1) {
+      slideIndex = slides.length;
+    }
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].classList.remove("bg-black");
+      dots[i].classList.add("bg-gray-500");
+    }
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].classList.remove("bg-gray-500");
+    dots[slideIndex - 1].classList.add("bg-black");
+  }
+</script>
+
+<main>
+  <div class="relative max-w-screen-xl mx-auto h-96 overflow-hidden">
+    <!-- Full-width images with number and caption text -->
+    <div class="mySlides fade relative">
+      <img src="{% static 'xiaomi14.png' %}" class="w-full" alt="MI" />
+    </div>
+  
+    <div class="mySlides fade hidden">
+      <img src="{% static 'vivoads.png' %}" class="w-full" alt="MI" />
+    </div>
+  
+    <div class="mySlides fade hidden">
+      <img src="{% static 'xiami14.png' %}" class="w-full" alt="adv" />
+    </div>
+  
+    <!-- Next and previous buttons -->
+    <a
+      class="cursor-pointer absolute top-1/2 left-0 transform -translate-y-1/2 px-4 py-2 text-white hover:bg-gray-600"
+      onclick="plusSlides(-1)"
+      >&#10094;</a
+    >
+    <a
+      class="cursor-pointer absolute top-1/2 right-0 transform -translate-y-1/2 px-4 py-2 text-white hover:bg-gray-600"
+      onclick="plusSlides(1)"
+      >&#10095;</a
+    >
+  </div>
+  <br />
+  
+  <!-- The dots/circles -->
+  <div class="text-center">
+    <span
+      class="dot inline-block w-4 h-4 bg-gray-500 rounded-full mx-1 cursor-pointer"
+      onclick="currentSlide(1)"
+    ></span>
+    <span
+      class="dot inline-block w-4 h-4 bg-gray-500 rounded-full mx-1 cursor-pointer"
+      onclick="currentSlide(2)"
+    ></span>
+    <span
+      class="dot inline-block w-4 h-4 bg-gray-500 rounded-full mx-1 cursor-pointer"
+      onclick="currentSlide(3)"
+    ></span>
+  </div>
+  
+  <div class="p-1 flex flex-wrap items-center justify-center">
+    {% for product in products %} {% include 'products/partials/product_item_list.html' %} {% endfor %}
+  </div>
+</main>
+{% endblock content %}

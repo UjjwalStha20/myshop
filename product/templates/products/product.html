@@ -1,0 +1,38 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<div class="ml-12 mr-12 max-w-8xl mx-auto flex flex-wrap py-6 px-6 xl:px-0">
+    <div class="images w-full mb-6 lg:mb-0 lg:w-3/5">
+        <img src="{{ product.image.url }}" alt="product_img" class="rounded-xl relative w-full lg:h-8screen">
+    </div>
+
+    <div class="information w-full lg:p-6 lg:w-2/5">
+        <h1 class="text-xl">{{ product.name }}</h1>
+        <p class="mt-1 texr-grey-500">{{ product.price }}</p>
+        <table class="table-auto ">
+            <tr>
+                <th>Color</th>
+                <td>{{ product.color }}</td>
+            </tr>
+            <tr>
+                <th>Storage</th>
+                <td>{{ product.storage }}</td>
+            </tr>
+        </table>
+        {% if product.description %}
+            <p class="mt-6 text-slate-800">{{product.description}}</p>
+        {% endif %}
+        <a 
+            href="#" 
+            class="mt-6 inline-block px-8 py-4 rounded xl bg-orange-500 text-white hover:bg-orange-700"
+            hx-get="{% url 'add_to_cart' product.id %}"
+            hx-target="#list_cart_button"
+            hx-swap ="outerHTML"
+            >
+            Add to Cart
+        </a>   
+    </div>
+</div>
+
+{% endblock content %}

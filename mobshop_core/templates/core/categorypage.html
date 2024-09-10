@@ -1,0 +1,47 @@
+{% extends 'core/base.html' %} {% block title %} Category {% endblock%}
+
+{% block content %}
+
+<div class="ml-12">
+    <h1 class="font-bold text-2xl">Category List</h1>
+
+    <div
+        class=" max-w-8xl mx-auto flex flex-wrap items-start py-6 px-6 xl:px-0">
+        <div class="filters w-full lg:w-1/4">
+            <h3 class="mb-3 text-xl uppercase">Search</h3>
+            <form method="get" action=".">
+                <div class="flex">
+                    <input type="text" name="search_query"
+                        class="p- bg-gray-100 border-0"
+                        placeholder="Search....">
+                    <button class="px-4 py-2 bg-gray-100 border-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-4">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m15.75 15.75-2.489-2.489m0 0a3.375 3.375 0 1 0-4.773-4.773 3.375 3.375 0 0 0 4.774 4.774ZM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                    </button>
+                </div>
+            </form>
+
+            <h3 class="mt-6 mb-3 text-xl uppercase">Categories</h3>
+            <ul class="space-y-2">
+                <li><a href="{% url 'category' %}"
+                        class="{% if not active_category %}text-slate-800{% else %}text-slate-500{% endif %}">All
+                        Categories</a></li>
+                {% for category in categories%}
+                <li><a href="{% url 'category' %}?category={{category.name}}"
+                        class="{% if category.name == active_category %}text-slate-800{% else %}text-slate-500{% endif %}">{{category.name}}</a></li>
+
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="products w-full lg:w-3/4 -mt-4 flex flex-wrap items-center">
+            {% for product in products %}
+            {% include 'products/partials/product_item_list.html' %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

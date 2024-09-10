@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content />
+    <meta name="author" content />
+    <title>{% block title %} Welcome {% endblock%}|MobShop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .sticky-navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000; /* Ensure it's above other content */
+
+        background-color: white; /* Background color to cover content underneath */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow for better visibility */
+      }
+    </style>
+  </head>
+  <body class="bg-slate-300">
+    <!-- Navigation Bar -->
+    <nav class="sticky-navbar py-4 bg-transparent">
+      <div class="container mx-auto px-4 flex justify-between items-center">
+        <!-- Logo -->
+        <div class="text-4xl">
+          <a
+            href="{% url 'landingpage' %}"
+            class="text-gray-800 hover:text-gray-900"
+            ><h1>MobShop</h1></a
+          >
+        </div>
+        <!-- Navigation Links -->
+        <div class="hidden md:flex space-x-4 text-xl font-medium text-gray-700">
+          <a class="px-5 hover:text-gray-900" href="{% url 'landingpage' %}"
+            >Home</a
+          >
+          <a class="px-5 hover:text-gray-900" href="{% url 'category' %}"
+            >Category</a
+          >
+          <a class="px-5 hover:text-gray-900" href="#">About</a>
+        </div>
+        <!-- Dropdown Menu -->
+        <div class="relative hidden md:flex items-center">
+          {% include "cart/menu_cart.html" %} 
+          {% if request.user.is_authenticated %}
+          <div class="relative inline-block text-left">
+            <!-- Dropdown Toggle -->
+            <button
+              id="dropdownButton"
+              class="flex items-center p-2 text-slate-500 hover:text-slate-800 focus:outline-none"
+            >
+              <svg
+                class="h-8 w-8"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                />
+              </svg>
+            </button>
+
+            <!-- Dropdown Menu -->
+            <div
+              id="dropdownMenu"
+              class="absolute right-0 mt-2 w-22 bg-white border border-gray-200 rounded-lg shadow-lg hidden"
+            >
+              <a
+                href="{% url 'myaccount' %}"
+                class="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                >Account
+              </a>
+              <form action="{% url 'logout' %}" method="post" class="inline">
+                {% csrf_token %}
+                <button
+                  type="submit"
+                  class="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                >
+                  Logout
+                </button>
+              </form>
+            </div>
+          </div>
+          {% else %}
+          <ul class="flex navbar-nav mx-auto">
+            <li class="nav-item px-3">
+              <a class="nav-link" href="{% url 'signin' %}">Login</a>
+            </li>
+            <li class="nav-item pr-2">
+              <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+            </li>
+          </ul>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    {% block content %} {% endblock %}
+
+    <!-- Footer -->
+    <footer class="py-5 bg-gray-900">
+      <div class="container mx-auto px-4 text-center">
+        <p class="m-0 text-white">Copyright &copy; MobShop 2024</p>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/htmx.org@1.7.0"></script>
+    <script>
+      document
+        .getElementById("dropdownButton")
+        .addEventListener("click", function () {
+          const menu = document.getElementById("dropdownMenu");
+          menu.classList.toggle("hidden");
+        });
+
+      // Optional: Close the dropdown if clicked outside
+      document.addEventListener("click", function (event) {
+        const menu = document.getElementById("dropdownMenu");
+        const button = document.getElementById("dropdownButton");
+
+        if (!menu.contains(event.target) && !button.contains(event.target)) {
+          menu.classList.add("hidden");
+        }
+      });
+
+      // Toggle mobile menu visibility
+      {% comment %} document
+        .getElementById("mobileMenuButton")
+        .addEventListener("click", function () {
+          const menu = document.getElementById("mobileMenu");
+          menu.classList.toggle("hidden");
+        }); {% endcomment %}
+
+      //Logout
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,89 @@
+<div class="p-1 flex flex-wrap items-center justify-center">
+  
+    <div
+      class="flex-shrink-0 m-6 relative overflow-hidden bg-orange-500 rounded-lg max-w-xs shadow-lg group"
+    >
+      <svg
+        class="absolute bottom-0 left-0 mb-8 scale-150 group-hover:scale-[1.65] transition-transform"
+        viewBox="0 0 375 283"
+        fill="none"
+        style="opacity: 0.1"
+      >
+        <rect
+          x="159.52"
+          y="175"
+          width="152"
+          height="152"
+          rx="8"
+          transform="rotate(-45 159.52 175)"
+          fill="white"
+        />
+        <rect
+          y="107.48"
+          width="152"
+          height="152"
+          rx="8"
+          transform="rotate(-45 0 107.48)"
+          fill="white"
+        />
+      </svg>
+      <div
+        class="relative pt-10 px-10 flex items-center justify-center group-hover:scale-110 transition-transform"
+      >
+        <div
+          class="block absolute w-48 h-48 bottom-0 left-0 -mb-24 ml-3"
+          style="
+            background: radial-gradient(black, transparent 60%);
+            transform: rotate3d(0, 0, 1, 20deg) scale3d(1, 0.6, 1);
+            opacity: 0.2;
+          "
+        ></div>
+        <a href="{% url 'product' product.id %}"
+          ><img class="relative w-40" src="{{ product.image.url }}" alt
+        />
+        </a>
+      </div>
+      <div class="flex text-white px-6 pb-6 mt-6 items-center">
+        <div class="w-11/12">
+          <a href="{% url 'product' product.id %}"
+            ><span class="block opacity-75 -mb-1"
+              >{{ product.category }}</span
+            ></a
+          >
+          <a href="{% url 'product' product.id %}"
+            ><span class="block font-semibold text-xl"
+              >{{ product.name}}</span
+            ></a
+          >
+          <span class="text-slate-300 text-x">Rs {{ product.price}}</span>
+        </div>
+        <div class="flex justify-end">
+          <a
+            href="#"
+            class="text-gray-500 hover:text-gray-800"
+            hx-get="{% url 'add_to_cart' product.id %}"
+            hx-target="#list_cart_button"
+            hx-swap ="outerHTML"
+            style="position: relative; z-index: 1000;"
+
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  
+</div>
